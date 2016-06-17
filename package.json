@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "mongo",
+=======
+  "name": "pomo",
+>>>>>>> 05c14fa2d063af6da355aea86acbd8363d1a22b6
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,9 +14,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.13.4",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
+=======
+    "express": "^4.13.4"
+>>>>>>> 05c14fa2d063af6da355aea86acbd8363d1a22b6
   },
   "devDependencies": {
     "babel-core": "^6.9.1",
