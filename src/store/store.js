@@ -1,7 +1,7 @@
 import {createStore} from 'redux';
-import {testReducer} from '../reducers/testReducer';
+import {Reducers} from '../reducers/Reducers';
 
 export default function(){
-  var store = createStore(testReducer);
+  var store = createStore(Reducers);
   return store;
 }

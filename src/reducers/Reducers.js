@@ -1,7 +1,7 @@
-import {ADD_ACTION,REMOVE_ACTION, CHANGE_ACTION} from '../actions/testAction';
+import {ADD_ACTION,REMOVE_ACTION, CHANGE_ACTION} from '../actions/Actions';
 export const initialState = {id:[],amount:{}};
 
-export function testReducer(state=initialState, action) {
+export function Reducers(state=initialState, action) {
   switch (action.type) {
     case ADD_ACTION:
       var index = state.id.indexOf(action.id);

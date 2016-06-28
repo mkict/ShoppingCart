@@ -2,7 +2,7 @@ export const ADD_ACTION = 'ADD_ACTION';
 export const REMOVE_ACTION = 'REMOVE_ACTION';
 export const CHANGE_ACTION = 'CHANGE_ACTION';
 
-export function testAction(id){
+export function addAction(id){
 	return{
 		type: ADD_ACTION,
 		id: id,

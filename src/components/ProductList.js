@@ -1,44 +1,40 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
-import {testAction,removeAction} from '../actions/testAction';
-import {testReducer,initialState} from '../reducers/testReducer';
 import createStore from '../store/store';
-import {connect} from 'react-redux'
+import Item from './Item';
+import {connect} from 'react-redux';
 
-var store = createStore();
 
 function mapDispatchToProps(dispatch){
 	return{
-		addItem: (id)=> store.dispatch(testAction(id)),
-   		removeItem: (id)=> store.dispatch(removeAction(id))
+		addItem: (id)=> dispatch(addAction(id)),
+   		removeItem: (id)=> dispatch(removeAction(id))
 	};
 }
 
 function mapStateToProps(state){
-	id: store.getState()
+	return {
+		id: state.id
+	};
 }
 
-class test extends React.Component {
-	constructor(props){
+@connect(mapStateToProps,mapDispatchToProps)
+export default class ProductList extends React.Component {
+	static contextTypes = {
+	  store: React.PropTypes.object
+	};
+
+	constructor(props,context){
 		super(props);
 		this.state = {
 			id: []
 		}
 	}
 
-	componentDidMount() {
-	    store.subscribe(()=>{
-	    	this.setState(store.getState());
-		})  
-	}
-
 	ClickHandle(e){
 		 this.props.addItem(e.target.value);
-		// store.dispatch(testAction(e.target.value));
 	}
 	HandleRemove(e){
 		this.props.removeItem(e.target.value);
-		// store.dispatch(removeAction(e.target.value));
 	}
 
     render() {
@@ -46,7 +42,8 @@ class test extends React.Component {
         		<button onClick = {this.ClickHandle.bind(this)} value = "1">ClickHere1</button>
         		<button onClick = {this.ClickHandle.bind(this)} value = "2">ClickHere2</button>
         		<button onClick = {this.ClickHandle.bind(this)} value = "3">ClickHere3</button>
-        		<ShopList id= {this.state.id}></ShopList>
+        		<Item></Item>
+        		<ShopList id= {this.props.id}></ShopList>
         	</div>);
     }
 }
@@ -64,7 +61,3 @@ class ShopList extends React.Component{
 		);	
 	}
 }
-
-
-
-export default connect(mapDispatchToProps)(test)
