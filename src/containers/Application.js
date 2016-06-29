@@ -10,8 +10,10 @@ export default class Application extends React.Component {
     render() {
         return (
         	<Provider store = {store}>
-        		<ProductList/>
-        		<CartList/>
+        		<div>
+        			<ProductList/>
+        			<CartList/>
+        		</div>
         	</Provider>
         );
     }
