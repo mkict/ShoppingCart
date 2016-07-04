@@ -1,43 +1,67 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {removeItemFromCart} from '../actions/CartAction';
+import { connect } from 'react-redux';
+import { removeItemFromCart, increaseItem, DecreaseItem, checkOutFromCart, postItem } from '../actions/CartAction';
 import CartItemList from '../components/CartItemList';
 import CartItem from '../components/CartItem';
+import Promise from 'promise';
 
-function mapDispatchToProps(dispatch){
-    return{
-        removeItem: (item)=> dispatch(removeItemFromCart(item))
-    };
-}
-
-function mapStateToProps(state){
+function mapDispatchToProps(dispatch) {
     return {
-        cartItem: state.cartItem
+        removeItem: (item) => dispatch(removeItemFromCart(item)),
+        increaseItem: (item) => dispatch(increaseItem(item)),
+        DecreaseItem: (item) => dispatch(DecreaseItem(item)),
+        checkOutFromCart: (items) => dispatch(checkOutFromCart(items)),
+        postItem: (items) => dispatch(postItem(items))
     };
 }
 
-@connect(mapStateToProps,mapDispatchToProps)
-export default class CartList extends React.Component{
-	
-	static contextTypes = {
-      store: React.PropTypes.object
+function mapStateToProps(state) {
+    return {
+        cartItem: state.cartItem,
+        item: state.item
+    };
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+export default class CartList extends React.Component {
+
+    static contextTypes = {
+        store: React.PropTypes.object
     };
 
-	handleRemoveClick(v){
-		console.log(v);
+    handleRemoveClick(v) {
         this.props.removeItem(v);
 
-	}
+    }
 
-	render(){
-		return(
-			<div>
+    handleIncreaseClick(e) {
+        this.props.increaseItem(e);
+    }
+
+    handleDecreaseClick(e) {
+        this.props.DecreaseItem(e);
+    }
+
+    handleCheckOutClick(items) {
+        var sequence = Promise.resolve("success");
+        sequence.then(() => this.props.checkOutFromCart(items)).then(()=> this.props.postItem(this.props.item));
+
+    }
+
+    render() {
+        return (
+            <div>
+			<button onClick={this.handleCheckOutClick.bind(this,this.props.cartItem)}>CheckOut</button>
 				<CartItemList>
 	            	{this.props.cartItem.map((v,i)=>
-	                	<CartItem id={v.id} key={i} onClick={()=>this.handleRemoveClick(v)}/>
+	                	<CartItem name={v.name} amount={v.amount} key={i} 
+	                	onClickIncrease={()=>this.handleIncreaseClick(v)} 
+	                	onClickDecrease={()=>this.handleDecreaseClick(v)}
+	                	onClick={()=>this.handleRemoveClick(v)}/>
 	            	)}
 	        	</CartItemList>
+
 			</div>
-		);	
-	}
+        );
+    }
 }

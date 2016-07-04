@@ -2,4 +2,8 @@
 // Cart Action
 export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
+export const INCREASE_ITEM_IN_CART = 'INCREASE_ITEM_IN_CART';
+export const DECREASE_ITEM_IN_CART = 'DECREASE_ITEM_IN_CART';
 
+export const ADD_ITEM = "ADD_ITEM";
+export const CHECK_OUT_FROM_CART = "CHECK_OUT_FROM_CART";

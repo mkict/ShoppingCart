@@ -7,7 +7,7 @@ const logger = createLogger();
 export default function(){
   var store = createStore(
   	Reducers,
-  	applyMiddleware(logger)
+  	applyMiddleware(logger,thunk)
   );
   return store;
 }
